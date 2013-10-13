@@ -24,7 +24,7 @@ public static class PrimitiveMeshAssetCreator
         if (meshAsset == null) {
             meshAsset = new Mesh ();
             EditorUtility.CopySerialized (mesh, meshAsset);
-            AssetDatabase.CreateAsset (mesh, path);
+            AssetDatabase.CreateAsset (meshAsset, path);
         } else {
             EditorUtility.CopySerialized (mesh, meshAsset);
             AssetDatabase.SaveAssets ();
@@ -36,28 +36,21 @@ public static class PrimitiveMeshAssetCreator
         var mesh = new Mesh ();
 
         var vertices = new Vector3 [8];
-        vertices [0] = new Vector3 (-1, +1, 0);
-        vertices [1] = new Vector3 (+1, +1, 0);
-        vertices [2] = new Vector3 (+1, -1, 0);
-        vertices [3] = new Vector3 (-1, -1, 0);
-        vertices [4] = new Vector3 (+1, +1, 0);
-        vertices [5] = new Vector3 (-1, +1, 0);
-        vertices [6] = new Vector3 (-1, -1, 0);
-        vertices [7] = new Vector3 (+1, -1, 0);
+        vertices [0] = vertices [5] = new Vector3 (-1, +1, 0);
+        vertices [1] = vertices [4] = new Vector3 (+1, +1, 0);
+        vertices [2] = vertices [7] = new Vector3 (-1, -1, 0);
+        vertices [3] = vertices [6] = new Vector3 (+1, -1, 0);
         mesh.vertices = vertices;
 
         var uvs = new Vector2 [8];
-        uvs [0] = uvs [4] = new Vector2 (-1, -1);
-        uvs [1] = uvs [5] = new Vector2 (+1, -1);
-        uvs [2] = uvs [6] = new Vector2 (+1, +1);
-        uvs [3] = uvs [7] = new Vector2 (-1, +1);
+        uvs [0] = uvs [5] = new Vector2 (-1, -1);
+        uvs [1] = uvs [4] = new Vector2 (+1, -1);
+        uvs [2] = uvs [7] = new Vector2 (-1, +1);
+        uvs [3] = uvs [6] = new Vector2 (+1, +1);
         mesh.uv = uvs;
 
-        var indices = new int[8];
-        for (var i = 0; i < 8; i++) {
-            indices [i] = i;
-        }
-        mesh.SetIndices (indices, MeshTopology.Quads, 0);
+        var indices = new int[] {0, 1, 2, 3, 2, 1, 4, 5, 6, 7, 6, 5};
+        mesh.SetIndices (indices, MeshTopology.Triangles, 0);
 
         mesh.RecalculateNormals ();
         return mesh;
@@ -70,21 +63,18 @@ public static class PrimitiveMeshAssetCreator
         var vertices = new Vector3 [4];
         vertices [0] = new Vector3 (-1, +1, 0);
         vertices [1] = new Vector3 (+1, +1, 0);
-        vertices [2] = new Vector3 (+1, -1, 0);
-        vertices [3] = new Vector3 (-1, -1, 0);
+        vertices [2] = new Vector3 (-1, -1, 0);
+        vertices [3] = new Vector3 (+1, -1, 0);
         mesh.vertices = vertices;
         
         var uvs = new Vector2 [4];
         uvs [0] = new Vector2 (-1, -1);
         uvs [1] = new Vector2 (+1, -1);
-        uvs [2] = new Vector2 (+1, +1);
-        uvs [3] = new Vector2 (-1, +1);
+        uvs [2] = new Vector2 (-1, +1);
+        uvs [3] = new Vector2 (+1, +1);
         mesh.uv = uvs;
         
-        var indices = new int[5];
-        for (var i = 0; i < 5; i++) {
-            indices [i] = i & 3;
-        }
+        var indices = new int[] {0, 1, 3, 2, 0};
         mesh.SetIndices (indices, MeshTopology.LineStrip, 0);
         
         mesh.RecalculateNormals ();
@@ -97,34 +87,25 @@ public static class PrimitiveMeshAssetCreator
         mesh.subMeshCount = 2;
         
         var vertices = new Vector3 [8];
-        vertices [0] = new Vector3 (-1, +1, 0);
-        vertices [1] = new Vector3 (+1, +1, 0);
-        vertices [2] = new Vector3 (+1, -1, 0);
-        vertices [3] = new Vector3 (-1, -1, 0);
-        vertices [4] = new Vector3 (+1, +1, 0);
-        vertices [5] = new Vector3 (-1, +1, 0);
-        vertices [6] = new Vector3 (-1, -1, 0);
-        vertices [7] = new Vector3 (+1, -1, 0);
+        vertices [0] = vertices [5] = new Vector3 (-1, +1, 0);
+        vertices [1] = vertices [4] = new Vector3 (+1, +1, 0);
+        vertices [2] = vertices [7] = new Vector3 (-1, -1, 0);
+        vertices [3] = vertices [6] = new Vector3 (+1, -1, 0);
         mesh.vertices = vertices;
         
         var uvs = new Vector2 [8];
-        uvs [0] = uvs [4] = new Vector2 (-1, -1);
-        uvs [1] = uvs [5] = new Vector2 (+1, -1);
-        uvs [2] = uvs [6] = new Vector2 (+1, +1);
-        uvs [3] = uvs [7] = new Vector2 (-1, +1);
+        uvs [0] = uvs [5] = new Vector2 (-1, -1);
+        uvs [1] = uvs [4] = new Vector2 (+1, -1);
+        uvs [2] = uvs [7] = new Vector2 (-1, +1);
+        uvs [3] = uvs [6] = new Vector2 (+1, +1);
         mesh.uv = uvs;
         
-        var indices = new int[8];
-        for (var i = 0; i < 8; i++) {
-            indices [i] = i;
-        }
-        mesh.SetIndices (indices, MeshTopology.Quads, 0);
+        var indices = new int[] {0, 1, 2, 3, 2, 1, 4, 5, 6, 7, 6, 5};
+        mesh.SetIndices (indices, MeshTopology.Triangles, 0);
 
-        indices = new int[5];
-        for (var i = 0; i < 5; i++) {
-            indices [i] = i & 3;
-        }
+        indices = new int[] {0, 1, 3, 2, 0};
         mesh.SetIndices (indices, MeshTopology.LineStrip, 1);
+
 
         mesh.RecalculateNormals ();
         return mesh;
